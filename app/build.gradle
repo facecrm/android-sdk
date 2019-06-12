@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.ekidpro.facecrmsample"
+        applicationId "com.facecrm.sample"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -15,6 +15,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+repositories {
+    maven {
+        url  "https://facecrmsdk.bintray.com/facecrm"
     }
 }
 
@@ -42,5 +48,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation files('libs/apfacesdk-release.aar')
+    implementation 'com.facecrm:facecrm-sdk:0.4'
 }
