@@ -1,4 +1,4 @@
-# Android-faceCRM-SDK
+# Android-FaceCRM-SDK
 
 FaceCRM is an Android client library written in Java. It is used for register and detect faces.
 
