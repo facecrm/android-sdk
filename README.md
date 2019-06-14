@@ -20,7 +20,7 @@ Add this into your root build.gradle file:
 allprojects {
  repositories {
   ...
-  maven { url 'https://jitpack.io' }
+  url "https://facecrmsdk.bintray.com/facecrm"
  }
 }
 ```
@@ -28,7 +28,7 @@ allprojects {
 Add the dependency to your module build.gradle:
 
 ```gradle
-implementation 'com.facecrm:facecrm-sdk:0.5'
+implementation 'com.facecrm:facecrm-sdk:0.6'
 ```
 
 ### AndroidManifest.xml
