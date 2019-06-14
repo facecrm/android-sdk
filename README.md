@@ -85,7 +85,7 @@ FaceCRM.getsInstance().startDetectByCamera(Activity act, int containerView)
 ```
 act: camera view's layout.
 
-ContainerView: an CameraCustom in your layout xml, is used to embed camera view.
+containerView: an CameraCustom in your layout xml, is used to embed camera view.
 
 
 #### 2. Listen events
@@ -138,9 +138,9 @@ and remove camera view in UI CameraView if you do not want to continue register.
 ```java
 FaceCRM.getsInstance().startRegisterByCamera(Activity act, int containerView)
 ```
-rect: camera view 's frame.
+act: camera view 's frame.
 
-ContainerView: an CameraCustom in your layout xml, is used to embed camera view.
+containerView: an CameraCustom in your layout xml, is used to embed camera view.
 
 #### 2. Capture a face for register.
 ```java
