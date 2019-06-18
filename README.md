@@ -105,10 +105,10 @@ FaceCRMSDK.getsInstance().onFoundFace(new FoundFaceListener() {
 
 FaceCRMSDK.getsInstance().onDetectFace(new DetectFaceListener() {
     @Override
-    public void onDetectFaceSuccess(Bitmap face, Bitmap fullImage, String faceId, String metaData) {
+    public void onDetectFaceSuccess(Bitmap face, Bitmap fullImage, String data) {
           //face: UIImage contains a face is found in full image. 
-          //Face ID: a face's indentifier, was detected successfully from FaceCRM system. 
-          //Meta data: the embedded data of the detected face.
+          //data: an object contains face 's information like: face ID (a face's indentifier, was detected successfully from
+          //FaceCRM system), age, gender, emotion, your custom metadata....
     }
 
     @Override
@@ -155,17 +155,12 @@ FaceCRMSDK.getsInstance().captureFace(new CaptureFaceListener() {
 #### 3. Register faces with FaceCRM system
 After captured faces, you can register all faces or register each face:
 
-##### Register all faces:
 ```java
-FaceCRM.getsInstance().registerFaces(List<Bitmap> faces)
+FaceCRM.getsInstance().registerFaces(List<Bitmap> faces, String meta_data)
 ```
-faceArray: face array is registered
-
-##### Register each face:
-```java
-FaceCRM.getsInstance().registerEachFace(Bitmap face)
-```
-face: face is registered
+faces: face array is registered.
+meta_data: You can set anything if you want like normal text, json...
+You need at least a face for register.
 
 With register each face, you need to call the finish function:
 ```java
@@ -173,12 +168,36 @@ FaceCRM.getsInstance().finishRegister()
 ```
 
 #### 4. Listen register events
+
+Register process has 2 step: Upload all faces to server. Then, register these faces. You need upload successfully at least 1 face for continue the register step.
+
+You can listen events for both upload step and register step.
+
+#### Event upload each image face
+```java
+FaceCRMSDK.getsInstance().setUploadFaceListener(new UploadFaceListener() {
+    @Override
+    public void onUploadFace(Bitmap face, int code, String message) {
+        //face: face is uploaded successfully prepare to the register step
+        //code: upload's result code.
+        //message: upload's result message.
+    }
+});
+```
+
+#### Register all faces successfully:
 ```java
 FaceCRMSDK.getsInstance().onRegisterFace(new RegisterFaceListener() {
     @Override
-    public void onRegisterFace(Bitmap face, int code, String message) {
-        //face: UIImage contains a face, was sent to FaceCRM system for register. 
-        //status: register's result code.
+    public void onRegisterFaceSuccess(int code, String message, String faceId) {
+        //code: register's result code.
+        //message: register 's result message.
+        //faceId: a face's indentifier is registered successfully.
+    }
+    
+    @Override
+    public void onRegisterFaceFail(int code, String message) {
+        //code: register's result code.
         //message: register 's result message.
     }
 });
@@ -202,6 +221,41 @@ Camera view will show a rectangle bounds face. Default is always show. if you do
 FaceCRM.getsInstance().enableShowFaceResult(true)
 ```
 
+#### Set rate (or the difficult level) for face detection. 
+Range is from 0% to 100%. Minimum (also default) should be 50% and maximum should be 90%.
+```swift
+FaceCRM.shared.setDetectRate(50)
+```
+With higher percentage, detection's algorithm is also more complex. You will be harder to detect a face but you can detect exactly who you are.
+
+With lower percentage, detection 's algorithm is also less complex. You will be easier to detect a face but this face can be confused between many different faces
+
+
+#### Set detection type
+When detecting successfully a face, you will receive a model. This model contains face's info. Default info is faceID and your custom metadata.
+
+You can get more other info like: age, gender, emotion (analyze from your detection face)
+```java
+String type = OptionFaceCRM.DETECT_TYPE_AGE, OptionFaceCRM.DETECT_TYPE_GENDER, OptionFaceCRM.DETECT_TYPE_EMOTION
+OptionFaceCRM.mInstance().setDetectionType(type)
+```
+
+#### Set CollectionId
+You can get collection id from FaceCRM system's cms
+```java
+OptionFaceCRM.mInstance().setCollectionId(3)
+```
+
+#### Set TagId
+You can get tag id from FaceCRM system's cms
+```java
+OptionFaceCRM.mInstance().setTagId(4)
+```
+
+#### Set your custom metadata
+You can set your custom metadata in the register step. You can get this info again in the detection step. You can set anything if you want like normal text, json, xml....
+```java
+OptionFaceCRM.mInstance()setRegisterMetaData("I am a developer. I am 18 years old")
 
 ## Sample
 
