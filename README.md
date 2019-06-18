@@ -159,7 +159,9 @@ After captured faces, you can register all faces or register each face:
 FaceCRM.getsInstance().registerFaces(List<Bitmap> faces, String meta_data)
 ```
 faces: face array is registered.
+
 meta_data: You can set anything if you want like normal text, json...
+
 You need at least a face for register.
 
 With register each face, you need to call the finish function:
@@ -223,7 +225,7 @@ FaceCRM.getsInstance().enableShowFaceResult(true)
 
 #### Set rate (or the difficult level) for face detection. 
 Range is from 0% to 100%. Minimum (also default) should be 50% and maximum should be 90%.
-```swift
+```java
 FaceCRM.shared.setDetectRate(50)
 ```
 With higher percentage, detection's algorithm is also more complex. You will be harder to detect a face but you can detect exactly who you are.
@@ -256,7 +258,7 @@ OptionFaceCRM.mInstance().setTagId(4)
 You can set your custom metadata in the register step. You can get this info again in the detection step. You can set anything if you want like normal text, json, xml....
 ```java
 OptionFaceCRM.mInstance()setRegisterMetaData("I am a developer. I am 18 years old")
-
+```
 ## Sample
 
 The sample app demonstrates the use of the FaceCRM Android client library. The sample shows scenarios face detection and face registration. [See SAMPLE](https://github.com/facecrm/facecrm-android-sample) for details.
