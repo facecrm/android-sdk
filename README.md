@@ -177,7 +177,7 @@ You can listen events for both upload step and register step.
 
 #### Event upload each image face
 ```java
-FaceCRMSDK.getsInstance().setUploadFaceListener(new UploadFaceListener() {
+FaceCRMSDK.getsInstance().onUploadFace(new UploadFaceListener() {
     @Override
     public void onUploadFace(Bitmap face, int code, String message) {
         //face: face is uploaded successfully prepare to the register step
@@ -226,7 +226,7 @@ FaceCRM.getsInstance().enableShowFaceResult(true)
 #### Set rate (or the difficult level) for face detection. 
 Range is from 0% to 100%. Minimum (also default) should be 50% and maximum should be 90%.
 ```java
-FaceCRM.shared.setDetectRate(50)
+OptionFaceCRM.mInstance().setDetectRate(50)
 ```
 With higher percentage, detection's algorithm is also more complex. You will be harder to detect a face but you can detect exactly who you are.
 
@@ -238,7 +238,7 @@ When detecting successfully a face, you will receive a model. This model contain
 
 You can get more other info like: age, gender, emotion (analyze from your detection face)
 ```java
-String type = OptionFaceCRM.DETECT_TYPE_AGE, OptionFaceCRM.DETECT_TYPE_GENDER, OptionFaceCRM.DETECT_TYPE_EMOTION
+String type = OptionFaceCRM.DETECT_TYPE_AGE; OptionFaceCRM.DETECT_TYPE_GENDER; OptionFaceCRM.DETECT_TYPE_EMOTION;
 OptionFaceCRM.mInstance().setDetectionType(type)
 ```
 
