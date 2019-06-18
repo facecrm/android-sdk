@@ -28,7 +28,7 @@ allprojects {
 Add the dependency to your module build.gradle:
 
 ```gradle
-implementation 'com.facecrm:facecrm-sdk:0.6'
+implementation 'com.facecrm:facecrm-sdk:0.7'
 ```
 
 ### AndroidManifest.xml
