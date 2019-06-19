@@ -28,7 +28,7 @@ allprojects {
 Add the dependency to your module build.gradle:
 
 ```gradle
-implementation 'com.facecrm:facecrm-sdk:0.7'
+implementation 'com.facecrm:facecrm-sdk:0.8'
 ```
 
 ### AndroidManifest.xml
@@ -156,11 +156,9 @@ FaceCRMSDK.getsInstance().captureFace(new CaptureFaceListener() {
 After captured faces, you can register all faces or register each face:
 
 ```java
-FaceCRM.getsInstance().registerFaces(List<Bitmap> faces, String meta_data)
+FaceCRM.getsInstance().registerFaces(List<Bitmap> faces)
 ```
 faces: face array is registered.
-
-meta_data: You can set anything if you want like normal text, json...
 
 You need at least a face for register.
 
@@ -238,7 +236,7 @@ When detecting successfully a face, you will receive a model. This model contain
 
 You can get more other info like: age, gender, emotion (analyze from your detection face)
 ```java
-String type = OptionFaceCRM.DETECT_TYPE_AGE; OptionFaceCRM.DETECT_TYPE_GENDER; OptionFaceCRM.DETECT_TYPE_EMOTION;
+String type = OptionFaceCRM.DETECT_TYPE_EMOTION +","+ OptionFaceCRM.DETECT_TYPE_AGE +","+ OptionFaceCRM.DETECT_TYPE_GENDER;
 OptionFaceCRM.mInstance().setDetectionType(type)
 ```
 
@@ -257,7 +255,7 @@ OptionFaceCRM.mInstance().setTagId(4)
 #### Set your custom metadata
 You can set your custom metadata in the register step. You can get this info again in the detection step. You can set anything if you want like normal text, json, xml....
 ```java
-OptionFaceCRM.mInstance()setRegisterMetaData("I am a developer. I am 18 years old")
+OptionFaceCRM.mInstance().setRegisterMetaData("I am a developer. I am 18 years old")
 ```
 ## Sample
 
