@@ -28,7 +28,7 @@ allprojects {
 Add the dependency to your module build.gradle:
 
 ```gradle
-implementation 'com.facecrm:facecrm-sdk:0.8'
+implementation 'com.facecrm:facecrm-sdk:0.8.1'
 ```
 
 ### AndroidManifest.xml
@@ -81,11 +81,11 @@ Implement in 3 steps:
 
 #### 1. Add camera and start to detect
 ```java
-FaceCRM.getsInstance().startDetectByCamera(Activity act, int containerView)
+FaceCRMSDK.getsInstance().startDetectByCamera(Activity act, int cameraById)
 ```
 act: camera view's layout.
 
-containerView: an CameraCustom in your layout xml, is used to embed camera view.
+cameraById: an CameraCustom id in your layout xml, is used to embed camera view.
 
 
 #### 2. Listen events
@@ -122,7 +122,7 @@ FaceCRMSDK.getsInstance().onDetectFace(new DetectFaceListener() {
 
 #### 3. Stop and remove camera
 ```java
-FaceCRM.getsInstance().stopCamera()
+FaceCRMSDK.getsInstance().stopCamera()
 ```
 
 ### Register faces
@@ -136,11 +136,11 @@ and remove camera view in UI CameraView if you do not want to continue register.
 
 #### 1. Add camera and start to capture faces
 ```java
-FaceCRM.getsInstance().startRegisterByCamera(Activity act, int containerView)
+FaceCRMSDK.getsInstance().startRegisterByCamera(Activity act, int cameraById)
 ```
 act: camera view 's frame.
 
-containerView: an CameraCustom in your layout xml, is used to embed camera view.
+cameraById: an CameraCustom id in your layout xml, is used to embed camera view.
 
 #### 2. Capture a face for register.
 ```java
@@ -156,7 +156,7 @@ FaceCRMSDK.getsInstance().captureFace(new CaptureFaceListener() {
 After captured faces, you can register all faces or register each face:
 
 ```java
-FaceCRM.getsInstance().registerFaces(List<Bitmap> faces)
+FaceCRMSDK.getsInstance().registerFaces(List<Bitmap> faces)
 ```
 faces: face array is registered.
 
@@ -164,7 +164,7 @@ You need at least a face for register.
 
 With register each face, you need to call the finish function:
 ```java
-FaceCRM.getsInstance().finishRegister()
+FaceCRMSDK.getsInstance().finishRegister()
 ```
 
 #### 4. Listen register events
@@ -205,23 +205,17 @@ FaceCRMSDK.getsInstance().onRegisterFace(new RegisterFaceListener() {
 
 #### 5. Stop and remove camera
 ```java
-FaceCRM.getsInstance().stopCamera()
+FaceCRMSDK.getsInstance().stopCamera()
 ```
 
-### Config
-#### Set camera's scan frequency
+### Config for camera
+#### 1. Set camera's scan frequency
 Camera view will scan to found face each 1 second. Default ( also minimum) is 1 second.
 ```java
-FaceCRM.getsInstance().setScanFrequency(1) // 1 seconds
+FaceCRMSDK.getsInstance().setScanFrequency(1) // 1 seconds
 ```
 
-#### Set whether show face's rectangle or not, when camera view scan and found a face.
-Camera view will show a rectangle bounds face. Default is always show. if you do not want to show, you can turn off.
-```java
-FaceCRM.getsInstance().enableShowFaceResult(true)
-```
-
-#### Set rate (or the difficult level) for face detection. 
+#### 2. Set rate (or the difficult level) for face detection. 
 Range is from 0% to 100%. Minimum (also default) should be 50% and maximum should be 90%.
 ```java
 OptionFaceCRM.mInstance().setDetectRate(50)
@@ -230,8 +224,46 @@ With higher percentage, detection's algorithm is also more complex. You will be 
 
 With lower percentage, detection 's algorithm is also less complex. You will be easier to detect a face but this face can be confused between many different faces
 
+#### 3. Set whether show face's rectangle or not
+When camera view scan and found a face, camera view will show a rectangle bounds face.
 
-#### Set detection type
+Camera view will show a rectangle bounds face. Default is always show. if you do not want to show, you can turn off.
+```java
+OptionFaceCRM.mInstance().setEnableShowFaceResult(true)
+```
+
+#### 4. Set border's color and width in face's rectangle
+When camera view scan and found a face, camera view will show a rectangle bounds face.
+
+Default border's color is blue and border's width is 2 pixel. You can change border's info.
+```java
+OptionFaceCRM.mInstance().setFaceRectangle(String borderColor, int borderWidth)
+```
+borderColor: hex color. Example: #FFFFFF.
+
+borderWidth: border width with interger value > 0.
+
+#### 5. Change camera's position between front and rear
+After setup camera successfully, camera's position is front like default.
+
+You can update this position by switch action.
+```java
+FaceCRMSDK.getsInstance().switchCameraPosition()
+```
+
+You can update this position by setup action.
+```java
+OptionFaceCRM.mInstance().setCameraPosition(int camarePosition)
+```
+camarePosition: OptionFaceCRM.CAMERA_POSITION_FRONT or OptionFaceCRM.CAMERA_POSITION_BACK.
+
+You can get current position.
+```java
+OptionFaceCRM.mInstance().getCurrentCameraPosition()
+```
+
+### Config for detection and registration
+#### 1. Set detection type
 When detecting successfully a face, you will receive a model. This model contains face's info. Default info is faceID and your custom metadata.
 
 You can get more other info like: age, gender, emotion (analyze from your detection face)
@@ -240,19 +272,19 @@ String type = OptionFaceCRM.DETECT_TYPE_EMOTION +","+ OptionFaceCRM.DETECT_TYPE_
 OptionFaceCRM.mInstance().setDetectionType(type)
 ```
 
-#### Set CollectionId
+#### 2. Set CollectionId
 You can get collection id from FaceCRM system's cms
 ```java
 OptionFaceCRM.mInstance().setCollectionId(3)
 ```
 
-#### Set TagId
+#### 3. Set TagId
 You can get tag id from FaceCRM system's cms
 ```java
 OptionFaceCRM.mInstance().setTagId(4)
 ```
 
-#### Set your custom metadata
+#### 4. Set your custom metadata
 You can set your custom metadata in the register step. You can get this info again in the detection step. You can set anything if you want like normal text, json, xml....
 ```java
 OptionFaceCRM.mInstance().setRegisterMetaData("I am a developer. I am 18 years old")
