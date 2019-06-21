@@ -70,7 +70,7 @@ Add UI CameraCustom in layout xml
 ## Usage
 ### Instantiate SDK
 ```java
-FaceCRMSDK.newInstance(Context mContext);
+FaceCRMSDK.newInstance(Context mContext, String appId);
 ```
 
 ### Detect face 
@@ -285,9 +285,9 @@ OptionFaceCRM.mInstance().setTagId(4)
 ```
 
 #### 4. Set your custom metadata
-You can set your custom metadata in the register step. You can get this info again in the detection step. You can set anything if you want like normal text, json, xml....
+You can set your custom metadata in the register step. You can get this info again in the detection step. You can set anything if you want like normal string json
 ```java
-OptionFaceCRM.mInstance().setRegisterMetaData("I am a developer. I am 18 years old")
+OptionFaceCRM.mInstance().setRegisterMetaData(String json_data)
 ```
 ## Sample
 
