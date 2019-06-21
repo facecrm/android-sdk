@@ -28,7 +28,7 @@ allprojects {
 Add the dependency to your module build.gradle:
 
 ```gradle
-implementation 'com.facecrm:facecrm-sdk:0.8.1'
+implementation 'com.facecrm:facecrm-sdk:0.8.2'
 ```
 
 ### AndroidManifest.xml
@@ -285,10 +285,18 @@ OptionFaceCRM.mInstance().setTagId(4)
 ```
 
 #### 4. Set your custom metadata
-You can set your custom metadata in the register step. You can get this info again in the detection step. You can set anything if you want like normal string json
+You can set your custom metadata in the register step.
+
+NOTICE: metadata needs the json format.
 ```java
-OptionFaceCRM.mInstance().setRegisterMetaData(String json_data)
+FaceCRMSDK.getsInstance().setMetaData(String json_data)
 ```
+
+You can create a string with json format manually. Beside, you can also create this string from a HasMap.
+```java
+FaceCRMSDK.getsInstance().setMetaData(HasMap<String, String> hasmap_data)
+```
+
 ## Sample
 
 The sample app demonstrates the use of the FaceCRM Android client library. The sample shows scenarios face detection and face registration. [See SAMPLE](https://github.com/facecrm/facecrm-android-sample) for details.
