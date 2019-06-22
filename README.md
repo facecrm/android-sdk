@@ -28,7 +28,7 @@ allprojects {
 Add the dependency to your module build.gradle:
 
 ```gradle
-implementation 'com.facecrm:facecrm-sdk:0.8.2'
+implementation 'com.facecrm:facecrm-sdk:0.8.3'
 ```
 
 ### AndroidManifest.xml
@@ -59,7 +59,7 @@ Below is an example with a com.example package; replace with your own package wh
 Add UI CameraCustom in layout xml
 
 ```xml
-<com.face.detect.CameraCustom
+<com.face.detect.CameraFaceDetect
     android:id="@+id/camera_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
