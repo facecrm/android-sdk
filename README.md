@@ -20,7 +20,7 @@ Add this into your root build.gradle file:
 allprojects {
  repositories {
   ...
-  url "https://facecrmsdk.bintray.com/facecrm"
+  url  "https://dl.bintray.com/facecrm/FaceCRMSDK"
  }
 }
 ```
